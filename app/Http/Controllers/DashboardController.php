@@ -13,20 +13,20 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        $totalPatients = Patient::where('user_id', $user->id)->count();
+        // HAPUS filter user_id - tampilkan SEMUA pasien
+        $totalPatients = Patient::count(); // Removed where('user_id', $user->id)
         
-        $todayRecords = BloodPressureRecord::whereHas('patient', function($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->whereDate('measurement_date', Carbon::today())->count();
+        // HAPUS filter user_id - tampilkan SEMUA pengukuran hari ini
+        $todayRecords = BloodPressureRecord::whereDate('measurement_date', Carbon::today())->count();
         
-        $recentPatients = Patient::where('user_id', $user->id)
-            ->with('bloodPressureRecords')
+        // HAPUS filter user_id - tampilkan SEMUA pasien terbaru
+        $recentPatients = Patient::with('bloodPressureRecords')
             ->latest()
             ->take(5)
             ->get();
         
-        // Data untuk grafik
-        $chartData = $this->getChartData($user->id);
+        // Chart data untuk SEMUA pasien (tidak per user lagi)
+        $chartData = $this->getChartData();
         
         return view('dashboard', compact(
             'totalPatients', 
@@ -36,7 +36,7 @@ class DashboardController extends Controller
         ));
     }
     
-    private function getChartData($userId)
+    private function getChartData()
     {
         $months = [];
         for ($i = 5; $i >= 0; $i--) {
@@ -49,11 +49,9 @@ class DashboardController extends Controller
             ];
         }
         
-        $records = BloodPressureRecord::whereHas('patient', function($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })
-        ->where('measurement_date', '>=', Carbon::now()->subMonths(6))
-        ->get();
+        // HAPUS filter user_id - ambil SEMUA records
+        $records = BloodPressureRecord::where('measurement_date', '>=', Carbon::now()->subMonths(6))
+            ->get();
         
         foreach ($records as $record) {
             $key = $record->measurement_date->format('Y-m');
@@ -63,8 +61,7 @@ class DashboardController extends Controller
                 $months[$key]['count']++;
             }
         }
-        
-        // Hitung rata-rata
+        // Hitung rata - rata
         foreach ($months as &$month) {
             if ($month['count'] > 0) {
                 $month['systolic'] = round($month['systolic'] / $month['count']);
