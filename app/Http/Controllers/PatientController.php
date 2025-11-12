@@ -28,7 +28,7 @@ class PatientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|unique:patients',
+            'nik' => 'required|digits:16|unique:patients,nik',
             'medical_history' => 'nullable|string',
             'age' => 'nullable|integer|min:0|max:150',
             'height' => 'nullable|integer|min:0',
@@ -73,7 +73,7 @@ class PatientController extends Controller
         
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|unique:patients,nik,' . $patient->id,
+            'nik' => 'required|digits:16|unique:patients,nik,' . $patient->id,
             'medical_history' => 'nullable|string',
             'age' => 'nullable|integer|min:0|max:150',
             'height' => 'nullable|integer|min:0',
