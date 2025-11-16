@@ -183,7 +183,7 @@
                             <p class="text-sm font-medium text-gray-800 truncate max-w-[150px]">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-500 truncate">{{ Auth::user()->nip ?? 'Perawat' }}</p>
                         </div>
-                        <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('default.png') . urlencode(Auth::user()->name) . '&background=14B8A6&color=fff' }}"
+                        <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('default.png')}}"
                              alt="Profile"
                              class="w-10 h-10 rounded-full object-cover border-2 border-teal-500 flex-shrink-0">
                     </div>
