@@ -9,29 +9,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         * { font-family: 'Poppins', sans-serif; }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .logo-item {
-            transition: transform 0.3s ease;
-        }
-
-        .logo-item:hover {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 640px) {
-            .logo-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-teal-50 to-blue-50 min-h-screen flex items-center justify-center p-4">
@@ -39,30 +16,30 @@
     <div class="w-full max-w-md">
         <!-- Logo Section -->
         <div class="text-center mb-6">
-            <!-- Institution Logos -->
-            <div class="logo-container">
+            <!-- Institution Logos - ALWAYS SIDE BY SIDE -->
+            <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6">
                 <!-- PPN Logo -->
-                <div class="logo-item">
+                <div class="transition-transform hover:scale-105">
                     <img src="{{ asset('images/ppn-logo.png') }}"
                          alt="PPN Logo"
-                         class="h-16 w-auto sm:h-20 md:h-24">
+                         class="h-16 w-auto sm:h-20 md:h-24 object-contain">
                 </div>
 
                 <!-- UPI Logo -->
-                <div class="logo-item">
+                <div class="transition-transform hover:scale-105">
                     <img src="{{ asset('images/upi-logo.png') }}"
                          alt="UPI Logo"
-                         class="h-16 w-auto sm:h-20 md:h-24">
+                         class="h-16 w-auto sm:h-20 md:h-24 object-contain">
                 </div>
             </div>
 
-            <!-- App Logo -->
-            <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl shadow-lg mb-4">
+            <!-- App Logo & Title -->
+            <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl shadow-lg mb-3">
                 <i class="fas fa-heartbeat text-white text-2xl sm:text-3xl"></i>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Tension Track</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">Tension Track</h1>
             <p class="text-teal-600 font-medium text-sm sm:text-base">Monitoring Hipertensi</p>
-            <p class="text-xs sm:text-sm text-gray-500 mt-1">PPN UPI - The Education University</p>
+            <p class="text-xs sm:text-sm text-gray-500 mt-1">PPN UPI - Indonesia University of Education</p>
         </div>
 
         <!-- Login Card -->
@@ -79,7 +56,6 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
 
-                <!-- Email -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">EMAIL</label>
                     <div class="relative">
@@ -92,7 +68,6 @@
                     </div>
                 </div>
 
-                <!-- Password -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">PASSWORD</label>
                     <div class="relative">
@@ -102,13 +77,12 @@
                         <input type="password" name="password" id="loginPassword" required
                                class="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition text-sm sm:text-base"
                                placeholder="******">
-                        <button type="button" onclick="togglePassword('loginPassword')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Remember Me -->
                 <div class="flex items-center justify-between mb-6">
                     <label class="flex items-center">
                         <input type="checkbox" name="remember" class="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500">
@@ -116,20 +90,17 @@
                     </label>
                 </div>
 
-                <!-- Submit Button -->
                 <button type="submit" class="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3 rounded-lg font-semibold hover:from-teal-600 hover:to-teal-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-base">
                     <i class="fas fa-sign-in-alt mr-2"></i>Login
                 </button>
             </form>
 
-            <!-- Register Link -->
             <p class="text-center text-gray-600 mt-6 text-sm sm:text-base">
                 Belum punya akun?
                 <a href="{{ route('register') }}" class="text-teal-600 font-semibold hover:text-teal-700">Daftar sekarang</a>
             </p>
         </div>
 
-        <!-- Footer -->
         <div class="text-center mt-6">
             <p class="text-xs sm:text-sm text-gray-500">
                 © 2025 PPN UPI | Program Profesi Ners
@@ -138,8 +109,8 @@
     </div>
 
     <script>
-        function togglePassword(id) {
-            const input = document.getElementById(id);
+        function togglePassword() {
+            const input = document.getElementById('loginPassword');
             const icon = document.getElementById('eyeIcon');
 
             if (input.type === 'password') {

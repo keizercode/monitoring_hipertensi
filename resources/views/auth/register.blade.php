@@ -9,29 +9,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         * { font-family: 'Poppins', sans-serif; }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .logo-item {
-            transition: transform 0.3s ease;
-        }
-
-        .logo-item:hover {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 640px) {
-            .logo-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-teal-50 to-blue-50 min-h-screen flex items-center justify-center p-4">
@@ -40,19 +17,19 @@
         <!-- Logo Section -->
         <div class="text-center mb-6">
             <!-- Institution Logos -->
-            <div class="logo-container">
+            <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6">
                 <!-- PPN Logo -->
-                <div class="logo-item">
+                <div class="transition-transform hover:scale-105">
                     <img src="{{ asset('images/ppn-logo.png') }}"
                          alt="PPN Logo"
-                         class="h-16 w-auto sm:h-20 md:h-24">
+                         class="h-16 w-auto sm:h-20 md:h-24 object-contain">
                 </div>
 
                 <!-- UPI Logo -->
-                <div class="logo-item">
+                <div class="transition-transform hover:scale-105">
                     <img src="{{ asset('images/upi-logo.png') }}"
-                          alt="UPI Logo"
-                         class="h-16 w-auto sm:h-20 md:h-24">
+                         alt="UPI Logo"
+                         class="h-16 w-auto sm:h-20 md:h-24 object-contain">
                 </div>
             </div>
 
@@ -62,7 +39,7 @@
             </div>
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Tension Track</h1>
             <p class="text-teal-600 font-medium text-sm sm:text-base">Monitoring Hipertensi</p>
-            <p class="text-xs sm:text-sm text-gray-500 mt-1">PPN UPI - The Education University</p>
+            <p class="text-xs sm:text-sm text-gray-500 mt-1">PPN UPI - Indonesia University of Education</p>
         </div>
 
         <!-- Register Card -->

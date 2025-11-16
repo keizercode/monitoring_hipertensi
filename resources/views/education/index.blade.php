@@ -60,7 +60,7 @@
                 </a>
             </div>
         @empty
-            <p class="text-gray-500">Diet rendah garam penting untuk membantu menurunkan tekanan darah karena garam dapat menyebabkan tubuh menahan cairan dan meningkatkan beban kerja jantung. Pasien dianjurkan membatasi konsumsi makanan tinggi natrium seperti makanan instan, keripik, makanan kaleng, dan bumbu penyedap.</p>
+            <p class="text-gray-500">Konten belum tersedia</p>
         @endforelse
     </div>
 </div>
@@ -89,7 +89,7 @@
                 </a>
             </div>
         @empty
-            <p class="text-gray-500">Aktivitas fisik rutin dapat membantu memperbaiki aliran darah, menurunkan tekanan darah, serta menjaga berat badan ideal. Pasien dianjurkan melakukan olahraga ringan–sedang seperti jalan kaki 30 menit per hari, 5 kali seminggu.</p>
+            <p class="text-gray-500">Konten belum tersedia</p>
         @endforelse
     </div>
 </div>
@@ -118,7 +118,7 @@
                 </a>
             </div>
         @empty
-            <p class="text-gray-500">Memenuhi kebutuhan cairan harian membantu menjaga fungsi organ tubuh dan mencegah dehidrasi yang dapat mempengaruhi tekanan darah. Pasien dianjurkan minum air 6–8 gelas per hari atau disesuaikan dengan kondisi kesehatan.</p>
+            <p class="text-gray-500">Konten belum tersedia</p>
         @endforelse
     </div>
 </div>
@@ -147,7 +147,7 @@
                 </a>
             </div>
         @empty
-            <p class="text-gray-500">Penderita hipertensi perlu minum obat secara teratur sesuai anjuran dokter serta melakukan kontrol rutin untuk memantau perkembangan tekanan darah. Konsultasi dilakukan untuk mengevaluasi terapi dan menyesuaikan pengobatan bila diperlukan.</p>
+            <p class="text-gray-500">Konten belum tersedia</p>
         @endforelse
     </div>
 </div>
