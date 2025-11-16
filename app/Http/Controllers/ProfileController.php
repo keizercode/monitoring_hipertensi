@@ -6,11 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProfileController extends Controller
-{   
-    use AuthorizesRequests;
+{
     public function show()
     {
         return view('profile.show');
@@ -24,25 +22,31 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'nip' => 'nullable|string|unique:users,nip,' . $user->id,
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048', // Max 2MB
+        ], [
+            'photo.image' => 'File harus berupa gambar',
+            'photo.mimes' => 'Format foto harus: JPEG, JPG, PNG, atau GIF',
+            'photo.max' => 'Ukuran foto maksimal 2MB',
         ]);
 
         $data = $request->only(['name', 'email', 'nip']);
 
         if ($request->hasFile('photo')) {
-            // Hapus foto lama
-            if ($user->photo) {
+            // Delete old photo if exists
+            if ($user->photo && $user->photo !== 'default.png' && Storage::disk('public')->exists($user->photo)) {
                 Storage::disk('public')->delete($user->photo);
             }
-            
+
+            // Store new photo
             $data['photo'] = $request->file('photo')->store('photos', 'public');
         }
 
+        /** @var \App\Models\User $user */
         $user->update($data);
 
         return redirect()->route('profile.show')
@@ -54,6 +58,11 @@ class ProfileController extends Controller
         $request->validate([
             'current_password' => 'required',
             'password' => 'required|min:6|confirmed',
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi',
+            'password.required' => 'Password baru wajib diisi',
+            'password.min' => 'Password minimal 6 karakter',
+            'password.confirmed' => 'Konfirmasi password tidak cocok',
         ]);
 
         $user = Auth::user();
@@ -62,6 +71,7 @@ class ProfileController extends Controller
             return back()->withErrors(['current_password' => 'Password saat ini salah.']);
         }
 
+        /** @var \App\Models\User $user */
         $user->update([
             'password' => Hash::make($request->password)
         ]);
