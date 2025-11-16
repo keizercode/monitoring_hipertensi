@@ -10,15 +10,15 @@
         <div class="bg-gradient-to-r from-teal-500 to-teal-600 p-6 sm:p-8 text-white">
             <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 <div class="relative group">
-                    @if(Auth::user()->photo)
-                        <img src="{{ asset('storage/' . Auth::user()->photo) }}"
-                             alt="Profile Photo"
-                             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white shadow-lg">
-                    @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&size=200&background=14B8A6&color=fff"
-                             alt="Profile Photo"
-                             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white shadow-lg">
-                    @endif
+                @if(Auth::user()->photo === 'default.png')
+                <img id="preview"
+                src="{{ asset('default.png') }}"
+                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
+                @else
+                <img id="preview"
+                src="{{ asset('storage/' . Auth::user()->photo) }}"
+                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
+                @endif
 
                     <!-- Edit Badge -->
                     <a href="{{ route('profile.edit') }}"

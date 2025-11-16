@@ -20,16 +20,14 @@
             <div class="mb-6 sm:mb-8 text-center">
                 <div class="relative inline-block">
                     <!-- Preview Image -->
-                    @if(Auth::user()->photo)
-                        <img id="preview"
-                            src="{{ asset('storage/' . Auth::user()->photo) }}"
-                            alt="Profile Preview"
-                            class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
+                    @if(Auth::user()->photo === 'default.png')
+                    <img id="preview"
+                    src="{{ asset('default.png') }}"
+                    class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
                     @else
-                        <img id="preview"
-                            src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&size=200&background=14B8A6&color=fff"
-                            alt="Profile Preview"
-                            class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
+                    <img id="preview"
+                    src="{{ asset('storage/' . Auth::user()->photo) }}"
+                    class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-teal-500 shadow-lg mx-auto">
                     @endif
 
                     <!-- Camera Button -->
@@ -169,7 +167,7 @@
 
     @push('scripts')
     <script>
-        let defaultAvatar = "https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&size=200&background=14B8A6&color=fff";
+        let defaultAvatar = "{{ asset('default.png') }}&size=200&background=14B8A6&color=fff";
         let currentPhoto = "{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : '' }}";
 
         function previewImage(event) {
