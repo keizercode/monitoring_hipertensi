@@ -36,6 +36,14 @@ class ProfileController extends Controller
 
         $data = $request->only(['name', 'email', 'nip']);
 
+        if ($request->remove_photo == 1) {
+            if ($user->photo && $user->photo !== 'default.png' && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+
+            $data['photo'] = 'default.png';
+        }
+
         if ($request->hasFile('photo')) {
             // Delete old photo if exists
             if ($user->photo && $user->photo !== 'default.png' && Storage::disk('public')->exists($user->photo)) {
